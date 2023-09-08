@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Build folder
+build/
+
+# vscode settings
+.vscode/
+
+# Rubbish Bin
+bin/
