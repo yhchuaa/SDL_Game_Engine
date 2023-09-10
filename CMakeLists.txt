@@ -12,6 +12,6 @@ include_directories(${SDL2_INCLUDE_DIRS})
 find_package(SDL2_image CONFIG REQUIRED)
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 
-add_executable(main src/main.cpp src/Game.cpp src/TextureManager.cpp src/GameObj.cpp src/Map.cpp)
+add_executable(main src/main.cpp src/Game.cpp src/TextureManager.cpp src/Map.cpp src/Vector2D.cpp)
 target_link_libraries(main PRIVATE ${SDL2_LIBRARIES} SDL2_image::SDL2_image)
 target_include_directories(main PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

@@ -1,16 +1,15 @@
 #include "Game.h"
 #include "TextureManager.h"
-#include "GameObj.h"
 #include "Map.h"
-#include "Components.h"
+#include "ECS/Components.h"
+#include "Vector2D.h"
 
-GameObj* player;
 Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
 
 Manager manager;
-auto& newPlayer(manager.addEntity());
+auto& player(manager.addEntity());
 
 Game::Game()
 {}
@@ -38,11 +37,10 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
 		isRunning = true;
 	}
-
-	player = new GameObj("../assets/player/idle.png", 0, 0);
 	map = new Map();
 
-	newPlayer.addComponents<PositoinComponents>();
+	player.addComponents<TransformComponent>();
+	player.addComponents<SpriteComponent>("../assets/player/idle.png");
 }
 
 void Game::handleEvents()
@@ -63,17 +61,16 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	player->Update();
+	manager.refresh();
 	manager.update();
-	std::cout << newPlayer.getComponent<PositoinComponents>().x() << "," << 
-		newPlayer.getComponent<PositoinComponents>().y() << std::endl;
+	player.getComponent<TransformComponent>().position.Add(Vector2D(5,0));
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 	map->DrawMap();
-	player->Render();
+	manager.draw();
 	SDL_RenderPresent(renderer);
 }
 
