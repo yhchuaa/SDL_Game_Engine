@@ -5,10 +5,9 @@
 #include "Vector2D.h"
 
 Map* map;
-
 SDL_Renderer* Game::renderer = nullptr;
-
 Manager manager;
+SDL_Event Game::event;
 auto& player(manager.addEntity());
 
 Game::Game()
@@ -17,8 +16,7 @@ Game::Game()
 Game::~Game()
 {}
 
-void Game::init(const char* title, int width, int height, bool fullscreen)
-{
+void Game::init(const char* title, int width, int height, bool fullscreen){
 	int flags = 0;
 	
 	if (fullscreen)
@@ -41,11 +39,10 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
 	player.addComponents<TransformComponent>();
 	player.addComponents<SpriteComponent>("../assets/player/idle.png");
+	player.addComponents<KeyboardController>();
 }
 
-void Game::handleEvents()
-{
-	SDL_Event event;
+void Game::handleEvents(){
 
 	SDL_PollEvent(&event);
 
@@ -59,23 +56,20 @@ void Game::handleEvents()
 	}
 }
 
-void Game::update()
-{
+void Game::update(){
 	manager.refresh();
 	manager.update();
-	player.getComponent<TransformComponent>().position.Add(Vector2D(5,0));
 }
 
-void Game::render()
-{
+void Game::render(){
 	SDL_RenderClear(renderer);
 	map->DrawMap();
+	// std::cout << "(" << player.getComponent<TransformComponent>().position.x << "," << player.getComponent<TransformComponent>().position.y << ")" << std::endl;
 	manager.draw();
 	SDL_RenderPresent(renderer);
 }
 
-void Game::clean()
-{
+void Game::clean(){
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();

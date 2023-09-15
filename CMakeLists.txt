@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20.0)
 
-# set(CMAKE_TOOLCHAIN_FILE "C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake")
-# set(CMAKE_PREFIX_PATH "C:/dev/vcpkg/installed/x64-mingw-dynamic/share")
+set(CMAKE_TOOLCHAIN_FILE "C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake")
+set(CMAKE_PREFIX_PATH "C:/dev/vcpkg/installed/x64-mingw-dynamic/share")
 set(VCPKG_TARGET_TRIPLET "x64-mingw-dynamic")   
 
 project(main)
